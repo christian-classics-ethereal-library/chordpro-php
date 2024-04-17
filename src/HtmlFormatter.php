@@ -106,7 +106,7 @@ class HtmlFormatter extends Formatter implements FormatterInterface {
 
             $verse .= '<span class="chordpro-elem">
               <span class="chordpro-chord">' . $chord . '</span>
-              <span class="chordpro-text">' . trim($text) . '&nbsp;</span>
+              <span class="chordpro-text">' . trim($text ?? '') . '&nbsp;</span>
             </span>';
         }
         $verse .= '</div>';
@@ -117,7 +117,7 @@ class HtmlFormatter extends Formatter implements FormatterInterface {
     {
         $verse = '<div class="chordpro-verse">';
         foreach ($lyrics->getBlocks() as $block) {
-            $verse .= ltrim($block->getText());
+            $verse .= ltrim($block->getText() ?? '');
         }
         $verse .= '</div>';
         return $verse;

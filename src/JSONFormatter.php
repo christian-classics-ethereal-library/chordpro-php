@@ -53,7 +53,7 @@ class JSONFormatter extends Formatter implements FormatterInterface {
             if (is_array($chord)) $chord = implode('/',array_map("implode",$chord)).' ';
 
             $text = $block->getText();
-            $return[] = array('chord' => trim($chord), 'text' => $text);
+            $return[] = array('chord' => trim($chord ?? ''), 'text' => $text);
         }
         return $return;
     }
@@ -62,7 +62,7 @@ class JSONFormatter extends Formatter implements FormatterInterface {
     {
         $return = '';
         foreach ($lyrics->getBlocks() as $block) {
-            $return .= ltrim($block->getText());
+            $return .= ltrim($block->getText() ?? '');
         }
         return $return;
     }
