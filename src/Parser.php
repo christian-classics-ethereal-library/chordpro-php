@@ -57,7 +57,7 @@ class Parser
                 if ($num == 0 and count($block) == 1) {
                     $blocksObjs[] = new Block(null,$block[0]);
                 }
-                else if (substr($block[1],0,1) == " ") {
+                else if (substr($block[1] ?? '',0,1) == " ") {
                     $blocksObjs[] = new Block($block[0],null);
                     $blocksObjs[] = new Block(null,$block[1]);
                 }
