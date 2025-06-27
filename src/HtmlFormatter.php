@@ -81,16 +81,22 @@ class HtmlFormatter extends Formatter implements FormatterInterface {
             if (is_array($sliced_chords)) {
                 foreach ($sliced_chords as $sliced_chord) {
                     // Test if minor/major presence before slice chord with exposant part
-                    if (strtolower(substr($sliced_chord[1],0,1)) == 'm') { // in first position (without alteration)
-                        $chords[] = $sliced_chord[0].substr($sliced_chord[1],0,1).'<sup>'.substr($sliced_chord[1],1)
+                    if (strtolower(mb_substr($sliced_chord[1],0,3)) == 'maj') { // major in first position (without alteration)
+                        $chords[] = $sliced_chord[0].mb_substr($sliced_chord[1],0,3).'<sup>'.mb_substr($sliced_chord[1],3)
+                            .'</sup>';
+                    } else if (strtolower(mb_substr($sliced_chord[1],1,3)) == 'maj') { // major in second position (with alteration)
+                        $chords[] = $sliced_chord[0].'<sup>'.mb_substr($sliced_chord[1],0,1).'</sup>'
+                            .mb_substr($sliced_chord[1],1,3).'<sup>'.mb_substr($sliced_chord[1],4).'</sup>';
+                    } else if (strtolower(mb_substr($sliced_chord[1],0,1)) == 'm') { // minor in first position (without alteration)
+                        $chords[] = $sliced_chord[0].mb_substr($sliced_chord[1],0,1).'<sup>'.mb_substr($sliced_chord[1],1)
                             .'</sup>';
                     }
-                    else if (strtolower(substr($sliced_chord[1],1,1)) == 'm') { // in second position (with alteration)
-                        $chords[] = $sliced_chord[0].'<sup>'.substr($sliced_chord[1],0,1).'</sup>'
-                            .substr($sliced_chord[1],1,1).'<sup>'.substr($sliced_chord[1],2).'</sup>';
+                    else if (strtolower(mb_substr($sliced_chord[1],1,1)) == 'm') { // minor in second position (with alteration)
+                        $chords[] = $sliced_chord[0].'<sup>'.mb_substr($sliced_chord[1],0,1).'</sup>'
+                            .mb_substr($sliced_chord[1],1,1).'<sup>'.mb_substr($sliced_chord[1],2).'</sup>';
                     }
                     else {
-                        $chords[] = $sliced_chord[0].'<sup>'.substr($sliced_chord[1],0).'</sup>';
+                        $chords[] = $sliced_chord[0].'<sup>'.mb_substr($sliced_chord[1],0).'</sup>';
                     }
                 }
             }
