@@ -4,6 +4,7 @@ namespace ChordPro;
 
 class Song extends \ArrayObject {
 
+    private $lines;
     private $key;
     private $french_chords_list = array(
         'A' => 'La',
