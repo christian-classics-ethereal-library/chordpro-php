@@ -81,7 +81,9 @@ class HtmlFormatter extends Formatter implements FormatterInterface {
             if (is_array($sliced_chords)) {
                 foreach ($sliced_chords as $sliced_chord) {
                     // Test if minor/major presence before slice chord with exposant part
-                    if (strtolower(mb_substr($sliced_chord[1],0,3)) == 'maj') { // major in first position (without alteration)
+                    if (strtolower($sliced_chord[0]) === 'n') { // No chord chords (eg. N.C.) don't have a superscript
+                        $chords[] = $sliced_chord[0].$sliced_chord[1];
+                    } else if (strtolower(mb_substr($sliced_chord[1],0,3)) == 'maj') { // major in first position (without alteration)
                         $chords[] = $sliced_chord[0].mb_substr($sliced_chord[1],0,3).'<sup>'.mb_substr($sliced_chord[1],3)
                             .'</sup>';
                     } else if (strtolower(mb_substr($sliced_chord[1],1,3)) == 'maj') { // major in second position (with alteration)
