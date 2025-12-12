@@ -96,7 +96,8 @@ class Transposer
         foreach ($song->lines as $line) {
             if ($line instanceof Lyrics) {
                 foreach ($line->getBlocks() as $block) {
-                    if (null !== $block->getChord()) {
+                    // Avoid transposing null chords or chords like N.C. (for no chord)
+                    if (strtolower($block->getChord()[0][0] ?? 'n') !== 'n') {
                         if (is_numeric($value)) {
                             $block->setChord($this->simple_transpose($block->getChord(),$value));
                         }
