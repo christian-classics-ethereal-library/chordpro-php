@@ -84,8 +84,8 @@ class MonospaceFormatter extends Formatter implements FormatterInterface {
     {
         $texts = '';
         foreach ($lyrics->getBlocks() as $block) {
-            $texts .= ' ' . ($block->getText() ?? '');
+            $texts .= ltrim($block->getText() ?? '') ?: ' ';
         }
-        return preg_replace('/\s+/', ' ', trim($texts)) . "\n";
+        return $texts."\n";
     }
 }
